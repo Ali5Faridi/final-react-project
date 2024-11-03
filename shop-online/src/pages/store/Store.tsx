@@ -1,21 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState  } from "react";
 import ProductItem from "../../components/productItem/ProductItem";
 // import { Container } from '@mui/material'
 import Container from "../../components/container/Container";
 import { Link } from "react-router-dom";
 import { getProducts } from "../../services/api";
-import { useState } from "react";
-import { Products } from "../../types/server";
+import {IProduct} from "../../types/server";
 
 
 function Store() {
-  const [products, setProducts] = useState<Products[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   useEffect(() => {
     getProducts().then((result) => {
       setProducts(result);
     });
   }, []);
-  console.log(products);
 
   return (
     <div>
@@ -24,7 +22,7 @@ function Store() {
         <div className="grid grid-cols-4 gap-4 pl-4 mt-4">
           {products.map((item) => (
             
-            <Link to={`/product/${item.id}`}>
+            <Link key={item.id} to={`/product/${item.id}`}>
             <ProductItem {...item} />
             </Link>
           ))}

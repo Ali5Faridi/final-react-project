@@ -1,11 +1,11 @@
 
-import { Products } from "../../types/server";
+import { IProduct } from "../../types/server";
 
-type ProductItem = Products
+type TProductItem = IProduct
 
 
 
-function ProductItem({title, price, description, image}: ProductItem) {
+function ProductItem({title, price, description, image}: TProductItem) {
   return (
     <div className="p-1 shadow border rounded pb-4">
       <img className="rounded-t" src={image} alt="iphone-15" />
@@ -15,9 +15,7 @@ function ProductItem({title, price, description, image}: ProductItem) {
         <span>{price} €</span>
       </div>
       <div className="p-4 bg-orange-200 mt-2 rounded">
-        <p className="line-clamp-2">
-          {description}
-        </p>
+        <p className="line-clamp-2"> {description} </p>
       </div>
     </div>
   );

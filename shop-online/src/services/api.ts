@@ -8,3 +8,8 @@ export async function getProducts() {
     const { data } = await client.get('/products');
     return data;
 }
+
+export async function getProduct(id: string | number | undefined) {
+    const { data } = await client.get(`/products/${id}`);
+    return data;
+}
