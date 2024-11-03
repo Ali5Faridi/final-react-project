@@ -13,8 +13,10 @@ interface CartItem {
 }
 
 interface ShoppingCartContext {
-    cartItems: CartItem []
+    cartItems: CartItem [];
     handleIncreaseProductQty: (id: number) => void
+    handleDecreaseProductQty: (id: number) => void
+    getProductQty: (id: number) => number;
 }
 
 
@@ -29,31 +31,59 @@ export function ShoppingCartProvider({children}: IShoppingCartContext) {
 
     const handleIncreaseProductQty = (id: number) => {
         setCartItems((currentItems) => {
-          // بررسی می‌کنیم که آیا محصول با آی‌دی مورد نظر از قبل در سبد خرید وجود دارد یا نه
+       
           let selectedItem = currentItems.find((item) => item.id == id);
           
-          // اگر محصول در سبد خرید وجود نداشت
+        
           if (selectedItem == null) {
             return [...currentItems, { id: id, qty: 1 }];
           } 
-          // اگر محصول در سبد خرید وجود داشت
+        
           else {
             return currentItems.map((item) => {
               if (item.id == id) {
-                // اگر آی‌دی محصول با آی‌دی ورودی مطابقت داشت، تعداد آن را یک واحد افزایش می‌دهیم
+               
                 return { ...item, qty: item.qty + 1 };
               } else {
-                // در غیر این صورت، محصول را بدون تغییر باز می‌گردانیم
+             
                 return item;
               }
             });
           }
         });
       };
+
+      const handleDecreaseProductQty = (id: number) => {
+        setCartItems(currentItems=>{
+            let selectedItem = currentItems.find((item) => item.id == id);
+
+            if(selectedItem?.qty === 1){
+                return currentItems.filter((item) => item.id !== id)
+            }
+            else {
+                return currentItems.map((item) => {
+                  if (item.id == id) {
+              
+                    return { ...item, qty: item.qty - 1 };
+                  } else {
+                 
+                    return item;
+                  }
+                });
+              }
+        })
+    }
+         
+      const getProductQty = (id: number) => {
+
+       return  cartItems.find(item => item.id === id)?.qty || 0;
+        
+      }
       
 
     return (
-        <ShoppingCartContext.Provider value={{cartItems , handleIncreaseProductQty}}>
+        <ShoppingCartContext.Provider
+         value={{cartItems , handleIncreaseProductQty , handleDecreaseProductQty , getProductQty}}>
             {children}
         </ShoppingCartContext.Provider>
     )
