@@ -1,7 +1,9 @@
 // import { Container } from '@mui/material'
-import React from 'react'
+// import { Button } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import Container from '../../components/container/Container'
+
+import Button from '../../components/button/Button'
 
 function Product() {
 
@@ -12,6 +14,9 @@ function Product() {
       <div className="h-96 grid grid-cols-12">
         <div className='bg-slate-400 col-span-2 p-4'>
         <img className="rounded" src="../src/assets/iphon.webp" alt="iphone-15" />
+         
+         <Button className='w-full' variant="primary"> Add to cart </Button>
+
         </div>
       
 
@@ -40,9 +45,7 @@ function Product() {
         </div>
        
 
-        <div>
-          <button className='bg-green-500 text-white p-2'>Add to Cart</button>
-        </div>
+      
       </div>
       </div>
       </Container>

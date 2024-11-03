@@ -14,7 +14,10 @@ function Navbar() {
         <li className='ml-4'><Link to="/store">Store</Link></li>
        </ul>
        <div>
-           <button className='text-green-600 mr-12'><ShoppingCartIcon /></button>
+        <Link to="/cart">
+        <button className='text-green-600 mr-12'><ShoppingCartIcon /></button>
+        </Link>
+          
        </div>
         </div>
       
