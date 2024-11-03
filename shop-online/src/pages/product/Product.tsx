@@ -6,10 +6,13 @@ import Button from "../../components/button/Button";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../services/api";
 import { IProduct } from "../../types/server";
+import {useShoppingCartContext} from "../../context/ShoppingCartContext";
 
 function Product() {
   const params = useParams<{ id: string }>();
   const [product, setProduct] = useState<IProduct>();
+
+  const {handleIncreaseProductQty} = useShoppingCartContext();
 
   useEffect(() => {
     getProduct(params.id as string).then((data) => {
@@ -28,7 +31,7 @@ function Product() {
               alt="iphone-15"
             />
 
-            <Button className="w-full" variant="primary">
+            <Button onClick={()=> handleIncreaseProductQty(parseInt(params.id as string))} className="w-full" variant="primary">
               {" "}
               Add to cart{" "}
             </Button>
@@ -37,7 +40,7 @@ function Product() {
           <div className="bg-yellow-100 col-span-10 p-4">
             <h1>{product?.title}</h1>
             <div>
-              <p>{product?.price}</p>
+              <p>{product?.price} € </p>
               <p className="p-3 bg-lime-200">{product?.description}</p>
             </div>
           </div>
