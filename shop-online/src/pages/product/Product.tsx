@@ -6,13 +6,18 @@ import Button from "../../components/button/Button";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../services/api";
 import { IProduct } from "../../types/server";
-import {useShoppingCartContext} from "../../context/ShoppingCartContext";
+import { useShoppingCartContext } from "../../context/ShoppingCartContext";
 
 function Product() {
   const params = useParams<{ id: string }>();
   const [product, setProduct] = useState<IProduct>();
 
-  const {handleDecreaseProductQty , handleIncreaseProductQty , cartItems , getProductQty} = useShoppingCartContext();
+  const {
+    handleDecreaseProductQty,
+    handleIncreaseProductQty,
+    cartItems,
+    getProductQty,
+  } = useShoppingCartContext();
 
   useEffect(() => {
     getProduct(params.id as string).then((data) => {
@@ -25,25 +30,44 @@ function Product() {
       <Container>
         <div className="h-96 grid grid-cols-12">
           <div className="bg-slate-400 col-span-2 p-4">
-            <img
-              className="rounded"
-              src={product?.image}
-              alt="iphone-15"
-            />
+            <img className="rounded" src={product?.image} alt="iphone-15" />
 
-            <Button onClick={()=> handleIncreaseProductQty(parseInt(params.id as string))} className="w-full" variant="primary">
-              Add to cart
-            </Button>
-           
-           {getProductQty(parseInt(params.id as string))}
-           
-            <Button onClick={() => {
-              handleDecreaseProductQty(parseInt(params.id as string))
-            }} className="w-full" variant="primary">
-             
+            {
+            getProductQty(parseInt(params.id as string)) === 0 ? <Button
+            onClick={() =>
+              handleIncreaseProductQty(parseInt(params.id as string))
+            }
+            className="w-full"
+            variant="primary"
+          >
+            Add to cart
+          </Button> :
+
+          <div className="grid grid-cols-3">
+            <Button
+            onClick={() =>
+              handleIncreaseProductQty(parseInt(params.id as string))
+            }
+            className="w-full"
+            variant="primary"
+          >
+           +
+          </Button> 
+
+              <span className="flex justify-center items-center">{getProductQty(parseInt(params.id as string))}</span>
+           <Button
+              onClick={() => {
+                handleDecreaseProductQty(parseInt(params.id as string));
+              }}
+              className="w-full"
+              variant="primary"
+            >
               -
             </Button>
+          </div>
+          }
 
+            
           </div>
 
           <div className="bg-yellow-100 col-span-10 p-4">
