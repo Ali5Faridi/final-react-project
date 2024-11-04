@@ -20,6 +20,8 @@ interface ShoppingCartContext {
     getProductQty: (id: number) => number;
     handleRemoveProduct: (id: number) => void
     cartQty: number
+    isLogin: boolean
+    handleLogin: () => void
 }
 
 
@@ -90,11 +92,20 @@ export function ShoppingCartProvider({children}: IShoppingCartContext) {
     };
 
     const cartQty = cartItems.reduce((totalQty, item)=> totalQty + item.qty , 0)
+
+    const [isLogin, setIsLogin] = useState(false);
+
+    const handleLogin = () => {
+        setIsLogin(true);
+    }
       
 
     return (
         <ShoppingCartContext.Provider
-         value={{cartItems , handleIncreaseProductQty , handleDecreaseProductQty , getProductQty , handleRemoveProduct , cartQty}}>
+         value={{cartItems , handleIncreaseProductQty ,
+          handleDecreaseProductQty , getProductQty ,
+           handleRemoveProduct , cartQty , isLogin , handleLogin
+           }}>
             {children}
         </ShoppingCartContext.Provider>
     )
