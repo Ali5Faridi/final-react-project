@@ -6,6 +6,7 @@ import Product from "./pages/product/Product";
 import Cart from "./pages/cart/Cart";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import PrivetRoute from "./components/privetRoute/PrivetRoute";
+import Login from "./pages/login/Login";
 
 function App() {
       
@@ -17,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
         <Route path="/product/:id" element={<Product />} />
-
+        <Route path= "/login" element={<Login />} />
         <Route element={<PrivetRoute />}>
         <Route path="/cart" element={<Cart />} /> 
         </Route>

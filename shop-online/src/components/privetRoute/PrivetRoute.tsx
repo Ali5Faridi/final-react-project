@@ -10,7 +10,7 @@ function PrivetRoute() {
   return (
     <>
       {
-        isLogin ? <Outlet /> : <Navigate to="/" />
+        isLogin ? <Outlet /> : <Navigate to="/login" />
       }
     </>
   )
